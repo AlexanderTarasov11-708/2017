@@ -12,15 +12,21 @@ namespace ex
         {
             //first task
 
-            int sum = 0;
+            int result = SumOfMultiplies(3) + SumOfMultiplies(5) - SumOfMultiplies(15);
+            Console.WriteLine("Sum of multipliers: {0}", result);
+        }
 
-            for (int i = 0; i < 1000; i++)              //loop of all positive numbers < than 1000
-            {
-                if ((i % 3 == 0) || (i % 5 == 0))       //check for multiplicity on 3 or 5
-                    sum += i;
-            }
+        static int SumOfMultiplies(int number)      // quantity of numbers < than 'border' and miltiple of 'number'
+        {
+            //sum of multiplies is sum of members of arithmetic progression
+            // sum = ((a1 + aN) * n ) / 2
 
-            Console.WriteLine(sum);
+            int n = 999 / number;
+            int lastNumber = n * number;
+
+            int sum = ((number + lastNumber) * n ) / 2;
+
+            return sum;
         }
     }
 }
