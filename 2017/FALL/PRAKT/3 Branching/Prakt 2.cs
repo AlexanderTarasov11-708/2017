@@ -17,11 +17,11 @@ namespace Rectangles
         }
 
         // нахождение длины пересечения 2 отрезков
-        static double IntersectionRegion(double A, double B, double C, double D)
+        static double IntersectionRegion(double a, double b, double c, double d)
         {
-            return Math.Min(B, D) - Math.Max(A, C);
+            return Math.Min(b, d) - Math.Max(a, c);
         }
-
+        
         // Методы для лучшего понимания кода
         // Левая точка левого прямоугольника
         public static double LeftRectLeftPoint(Rectangle r1, Rectangle r2)
