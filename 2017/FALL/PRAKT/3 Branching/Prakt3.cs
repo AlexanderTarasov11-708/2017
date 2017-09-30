@@ -7,40 +7,31 @@ namespace DistanceTask
         // Расстояние от точки (x, y) до отрезка AB с координатами A(ax, ay), B(bx, by)
         public static double GetDistanceToSegment(double ax, double ay, double bx, double by, double x, double y)
         {
-            double xVector = Length(bx, ax);
-            double yVector = Length(by, ay);
+            double lengthAB = DistanceBtwPoints(Length(bx, ax), Length(by, ay));
+            double lengthAP = DistanceBtwPoints(Length(ax, x), Length(ay, y));
+            double lengthBP = DistanceBtwPoints(Length(bx, x), Length(by, y));
 
-            double xLength0 = Length(ax, x);
-            double yLength0 = Length(ay, y);
-
-            double xLength1 = Length(bx, x);
-            double yLength1 = Length(by, y);
-
-            double lengthAB = DistanceBtwPoints(xVector, yVector);
-            double lengthAP = DistanceBtwPoints(xLength0, yLength0);
-            double lengthBP = DistanceBtwPoints(xLength1, yLength1);
-
-            //scalar multiplication of AP and AB
-            double scalarMulti0 = (bx - ax)*(x - ax) + (by - ay)*(y - ay);
-            //scalar multiplication of AB*AB
-            double scalarMulti1 = Math.Pow(lengthAP, 2.0);
-
-            //if point is on the same horizontal line with line segment
-            if (ay == by && ay == y)
+            //scalar multiplication
+            double scalarAC = (bx - ax)*(x - ax) + (by - ay)*(y - ay);
+            double scalarBC = (-bx + ax)* (x - bx) + (-by + ay)* (y - by);
+            double scalarAB = Math.Pow(lengthAP, 2.0);
+            
+            //if lengthAB = 0 then AB is not line segment, but just point
+            if ( lengthAB == 0 )
             {
-                //if point belongs to line segment
-                if (x > Math.Min(ax,bx) && x < Math.Max(ax,bx))
-                    return 0.0;
-                return Math.Min(Length(ax,x),Length(bx,x));
+                return lengthAP;    //or lengthBP the same
             }
-            else if (scalarMulti0 <= 0)
-                return lengthAP;
-            else if (scalarMulti1 <= scalarMulti0)
-                return lengthBP;
-            else
+
+            else if (scalarAC >= 0 && scalarBC >= 0)
             {
-                return (Math.Abs(yVector * x - xVector * y + bx * ay - by * ax)) / lengthAB;
+                double p = (lengthAP + lengthBP + lengthAB) / 2;
+                //by Gerone formula
+                double s = Math.Abs(p * (p - lengthAB) * (p - lengthAP) * (p - lengthBP));
+                //finding the height of a triangle
+                return (2* Math.Sqrt(s))/lengthAB;
             }
+            //minimal distance btw point and A or B
+            return Math.Min(lengthAP,lengthBP);
             
 
         }
