@@ -68,6 +68,20 @@ namespace ex
         //reversing string
         private static string ReverseString(string temp)
         {
+            string newString = "";
+
+            for (int i = temp.Length - 1; i >= 0; i--)
+            {
+                newString += temp.Substring(i, 1);
+            }
+
+            return newString;
+        }
+
+        //reversing string 2nd variant
+        //but I didn't know could I use such methods or not
+        private static string ReverseString1(string temp)
+        {
             char[] array = temp.ToCharArray();      //putting string into char array
             Array.Reverse(array);                   //reversing char array and getting reversed number
             return new string(array);
