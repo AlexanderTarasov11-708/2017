@@ -4,13 +4,16 @@ namespace ex
 {
     public class Program
     {
+        //Тарасов Александр 11-708
+        //Вариант 17
+        //Задача 1.1
         static void Main()
         {
             Console.WriteLine();
         }
 
         //определяем на каком шаге достигнется точность
-        static Tuple<int, double> DetermineStep(int x, double accuracy)
+        public static Tuple<int, double> DetermineStep(int x, double accuracy)
         {
             //начинаем шаг с 2, потому что
             //log(0)x не имеет решений
@@ -40,13 +43,13 @@ namespace ex
         }
 
         //функция суммы
-        private static double SumFunction(int x, int step)
+        public static double SumFunction(int x, int step)
         {
             return (Math.Pow(x, step) * Math.Pow(Math.Log(3), step)) / Factorial(step);
         }
 
         //вычисление факториала числа
-        static long Factorial(int n)
+        public static long Factorial(int n)
         {
             long result = 1;
             for (int i = 2; i <= n; i++)

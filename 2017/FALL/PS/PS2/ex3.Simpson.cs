@@ -4,9 +4,11 @@ namespace ex
 {
     public class Program
     {
+        //Тарасов Александр 11-708
+        //Вариант 17
+        //Задача 3 - Симпсон
         static void Main()
         {
-            var tmp = Simpson(2, 3, 12);
             Console.WriteLine();
         }
 
@@ -22,7 +24,7 @@ namespace ex
         //a - левая граница
         //b - правая граница
         //n - число отрезков
-        static double Simpson(double a, double b, double n)
+        public static double Simpson(double a, double b, double n)
         {
             double h = (b - a) / (2 * n);
             var result = (h / 3) * (Function(a) + Sum1(a, n, h) + Sum2(a, n, h) + Function(b));
@@ -49,7 +51,7 @@ namespace ex
 
         //подинтегральная функция
         //в отдельный момент, чтобы можно было удобно заменить на другую
-        static double Function(double x)
+        public static double Function(double x)
         {
             return -Math.Sin(Math.Tan(x));
         }

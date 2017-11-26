@@ -4,13 +4,17 @@ namespace ex
 {
     public class Program
     {
+        //Тарасов Александр 11-708
+        //Вариант 17
+        //Задача 1.2
         static void Main()
         {
+            var res = DetermineStep(2, 0.05);
             Console.WriteLine();
         }
 
         //определяем на каком шаге достигнется точность
-        static Tuple<int, double> DetermineStep(int x, double accuracy)
+        public static Tuple<int, double> DetermineStep(double x, double accuracy)
         {
             if (Math.Abs(x) > 1 || x == -1)
             {
@@ -25,19 +29,18 @@ namespace ex
                 double sum = 0;
                 if (SumAlgorithm(x, accuracy, ref step, function, ref sum))
                     return Tuple.Create(step, sum);
-                else 
+                else
                     //точность не достигнута
                     return null;
             }
         }
 
         //выполняем алгоритм суммы, пока не достигнем нужной точности
-        static bool SumAlgorithm(int x, double accuracy, ref int step, double function, ref double sum)
+        static bool SumAlgorithm(double x, double accuracy, ref int step, double function, ref double sum)
         {
             while (Math.Abs(function - sum) > accuracy)
             {
-                if (sum > function + accuracy)
-                    //если сумма уходит дальше, точность не достигнута
+                if (Math.Abs(function - sum) > 2)
                     return false;
                 sum += SumFunction(x, step);
                 step++;
@@ -46,9 +49,10 @@ namespace ex
         }
 
         //функция суммы
-        private static double SumFunction(int x, int step)
+        public static double SumFunction(double x, int step)
         {
-            return (Math.Pow(-x, step) * (1 + step));
+            var sum = (Math.Pow(-x, step) * (1 + step));
+            return sum;
         }
     }
 }

@@ -4,13 +4,16 @@ namespace ex
 {
     public class Program
     {
+        //Тарасов Александр 11-708
+        //Вариант 17
+        //Задача 2
         static void Main()
         {
             Console.WriteLine();
         }
 
         //определяем на каком шаге достигнется точность
-        static Tuple<int, double> DetermineStep(double accuracy)
+        public static Tuple<int, double> DetermineStep(double accuracy)
         {
             if (accuracy < 0.000000000000001)
                 //тип double охватывает до 15 разрядов
@@ -34,7 +37,7 @@ namespace ex
         }
 
         //функция суммы
-        private static double SumFunction(int step)
+        public static double SumFunction(int step)
         {
             return (Math.Pow(-1, step) / (Math.Pow(3, step) * (2 * step + 1)));
         }

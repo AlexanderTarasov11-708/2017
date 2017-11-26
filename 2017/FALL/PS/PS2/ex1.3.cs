@@ -4,6 +4,10 @@ namespace ex
 {
     public class Program
     {
+        //Тарасов Александр 11-708
+        //Вариант 17
+        //Задача 1.3
+
         //константа Эйлера
         static double Euler = 0.577215664901533;
 
@@ -13,7 +17,7 @@ namespace ex
         }
 
         //определяем, на каком шаге достигнется точность
-        static Tuple<int, double> DetermineStep(int n, double accuracy)
+        public static Tuple<int, double> DetermineStep(int n, double accuracy)
         {
             int step = 1;
             double function = Function(n) + Euler;
@@ -30,7 +34,7 @@ namespace ex
         }
 
         //функция
-        private static double Function(int x)
+        public static double Function(int x)
         {
             return Math.Log(x) + Math.Pow(2 * x, -1) - Math.Pow(12 * x * x, -1) + Math.Pow(120 * x * x * x * x, -1);
         }
@@ -50,7 +54,7 @@ namespace ex
         }
 
         //функция суммы
-        private static double SumFunction(int step)
+        public static double SumFunction(int step)
         {
             return Math.Pow(step, -1);
         }

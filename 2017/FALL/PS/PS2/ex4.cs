@@ -4,15 +4,21 @@ namespace ex
 {
     public class Program
     {
+        //Тарасов Александр 11-708
+        //Вариант 17
+        //Задача 4
         static void Main()
         {
             //УСЛОВИЕ!!!
             //первое число(a) должно быть >= второго(b)
+            var a = ToIntArray(123);
+            var b = ToIntArray(12);
+            var result = Divide(a, b);
             Console.WriteLine();
         }
 
         //число в массив цифр
-        static int[] ToIntArray(int a)
+        public static int[] ToIntArray(int a)
         {
             int length = GetIntLength(a);
             int[] array = new int[length];
@@ -37,24 +43,28 @@ namespace ex
         }
 
         //наибольший общий делитель
-        static int[] GCD(int[] a, int[] b)
+        public static int[] GCD(int[] a, int[] b)
         {
+            if (IsZero(b))
+                return null;
             while (!IsZero(b))
             {
                 var t = (int[])b.Clone();
                 b = Divide(a, b).Item2;
                 a = (int[])t.Clone();
             }
-            return a;
+            return NewReversedArray(a);
         }
 
         //наименьшее общее кратное
-        static int[] LCM(int[] a, int[] b)
+        public static int[] LCM(int[] a, int[] b)
         {
+            if (IsZero(b))
+                return null;
             var multi = Multiplication(a, b);
-            var gcd = GCD(a, b);
+            var gcd = NewReversedArray(GCD(a, b));
             var result = Divide(multi, gcd).Item1;
-            return result;
+            return NewReversedArray(result);
         }
 
         //ноль ли a?
@@ -91,7 +101,7 @@ namespace ex
         }
 
         //произведение, массивы перевёрнутые
-        static int[] Multiplication(int[] a, int[] b)
+        public static int[] Multiplication(int[] a, int[] b)
         {
             int[] c = new int[a.Length + b.Length];
             for (int j = 0; j < b.Length; j++)
@@ -129,7 +139,7 @@ namespace ex
         }
 
         //нахождение остатка, массивы перевёрнутые
-        static Tuple<int[], int[]> Divide(int[] a, int[] b)
+        public static Tuple<int[], int[]> Divide(int[] a, int[] b)
         {
             var result = new int[0];
             var copyA = (int[])a.Clone();
@@ -146,6 +156,12 @@ namespace ex
                 else
                 {   //если ещё нет остатка
                     aRight = PartArray(copyA, b.Length);
+                    if (aRight == null)
+                    {
+                        quotient = MergeArrays(new int[] { 0 }, quotient);
+                        result = PartArray(copyA, 1);
+                        break;
+                    }
                     copyA = RemoveArrayElements(copyA, b.Length);
                 }
 
@@ -192,6 +208,8 @@ namespace ex
         static int[] PartArray(int[] a, int length)
         {
             int[] tmpArray = new int[length];
+            if (a.Length < length)
+                return null;
             Array.Copy(NewReversedArray(a), tmpArray, length);
             return NewReversedArray(tmpArray);
         }
