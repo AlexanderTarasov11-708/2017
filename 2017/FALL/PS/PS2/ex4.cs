@@ -11,9 +11,6 @@ namespace ex
         {
             //УСЛОВИЕ!!!
             //первое число(a) должно быть >= второго(b)
-            var a = ToIntArray(123);
-            var b = ToIntArray(12);
-            var result = Divide(a, b);
             Console.WriteLine();
         }
 
