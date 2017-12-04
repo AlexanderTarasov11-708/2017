@@ -31,6 +31,7 @@ namespace ex
         //find next prime number after (a-1)
         static int FindingNextPrime(int a)
         {
+	    // ---check--- можно было только по нечётным бегать
             //while a is not prime, increment value
             while (!IsPrime(a))
             {
