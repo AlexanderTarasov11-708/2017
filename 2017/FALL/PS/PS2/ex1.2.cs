@@ -42,6 +42,7 @@ namespace ex
             {
                 if (Math.Abs(function - sum) > 2)
                     return false;
+				//---check--- Опять же неоптимально пересчитывать на каждом шаге степень
                 sum += SumFunction(x, step);
                 step++;
             }
