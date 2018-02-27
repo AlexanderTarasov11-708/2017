@@ -30,6 +30,7 @@ namespace ex
             while (Math.Abs(Math.PI - 2 * Math.Pow(3, 0.5) * sum) > accuracy)
             {
                 var tmp = sum * 2 * Math.Pow(3, 0.5);
+				//---check--- и здесь
                 sum += SumFunction(step);
                 step++;
             }

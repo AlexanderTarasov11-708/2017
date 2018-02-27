@@ -12,7 +12,7 @@ namespace ex
             Console.WriteLine();
         }
 
-        //сравнение результата, полученного с помощью формулы Монте-Карло, 
+		//сравнение результата, полученного с помощью формулы Монте-Карло, 
         //  и данного в условия значения
         public static double Comparison(double result)
         {
@@ -26,6 +26,7 @@ namespace ex
         //n - число отрезков
         public static double MonteCarlo(double a, double b, double n)
         {
+			//---check--- а где у вас случайность?
             double h = (b - a) / n;
             double result = 0;
             for (int i = 1; i <= n; i++)

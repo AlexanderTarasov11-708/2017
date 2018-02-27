@@ -25,6 +25,7 @@ namespace ex
 
             if (SumAlgorithm(accuracy, ref step, function, ref sum))
             {
+				//---check--- здесь аналогично предыдущим заданиям
                 var res = sum - Function(n);
                 return Tuple.Create(step, res);
             }

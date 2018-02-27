@@ -27,10 +27,11 @@ namespace ex
         public static double Simpson(double a, double b, double n)
         {
             double h = (b - a) / (2 * n);
-            var result = (h / 3) * (Function(a) + Sum1(a, n, h) + Sum2(a, n, h) + Function(b));
+			var result = (h / 3) * (Function(a) + Sum1(a, n, h) + Sum2(a, n, h) + Function(b));
             return result;
         }
 
+		//---check--- оптимальнее одним циклом решать
         //первая сумма в формуле Симпсона
         private static double Sum1(double a, double n, double h)
         {
