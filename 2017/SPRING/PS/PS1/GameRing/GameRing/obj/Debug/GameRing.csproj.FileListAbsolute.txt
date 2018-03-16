@@ -1,0 +1,9 @@
+D:\Библиотеки\Учёба\АСД\АСД семестровка\GameRing\GameRing\bin\Debug\GameRing.exe.config
+D:\Библиотеки\Учёба\АСД\АСД семестровка\GameRing\GameRing\bin\Debug\GameRing.exe
+D:\Библиотеки\Учёба\АСД\АСД семестровка\GameRing\GameRing\bin\Debug\GameRing.pdb
+D:\Библиотеки\Учёба\АСД\АСД семестровка\GameRing\GameRing\obj\Debug\GameRing.csprojResolveAssemblyReference.cache
+D:\Библиотеки\Учёба\АСД\АСД семестровка\GameRing\GameRing\obj\Debug\GameRing.csproj.CoreCompileInputs.cache
+D:\Библиотеки\Учёба\АСД\АСД семестровка\GameRing\GameRing\obj\Debug\GameRing.exe
+D:\Библиотеки\Учёба\АСД\АСД семестровка\GameRing\GameRing\obj\Debug\GameRing.pdb
+D:\Библиотеки\Учёба\АСД\АСД семестровка\GameRing\GameRing\bin\Debug\nunit.framework.dll
+D:\Библиотеки\Учёба\АСД\АСД семестровка\GameRing\GameRing\bin\Debug\nunitlite.dll
