@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace GameRing
 {
@@ -262,10 +263,10 @@ namespace GameRing
         // возвращает список в текстовом виде
         public string StringList()
         {
-            var res = "";
+            var res = new StringBuilder("");
             foreach (var elem in this)
-                res += elem.GetChar();
-            return res;
+                res.Append(elem.GetChar());
+            return res.ToString();
         }
     }
 }

@@ -10,6 +10,8 @@ namespace GameRing
      */
     public class Player
     {
+        // ID для дебага, чтобы отличать игроков
+        // Gender пол. 0 - мужской, 1 - женский
         public int ID;
         public int Gender { get; set; }
         public Player Next { get; set; }
