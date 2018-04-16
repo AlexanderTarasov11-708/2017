@@ -1,0 +1,7 @@
+D:\Библиотеки\Учёба\АСД\patience sorting\PatienceSorting\PatienceSorting\obj\Debug\PatienceSorting.csprojResolveAssemblyReference.cache
+D:\Библиотеки\Учёба\АСД\patience sorting\PatienceSorting\PatienceSorting\obj\Debug\PatienceSorting.csproj.CoreCompileInputs.cache
+D:\Библиотеки\Учёба\АСД\patience sorting\PatienceSorting\PatienceSorting\bin\Debug\PatienceSorting.exe.config
+D:\Библиотеки\Учёба\АСД\patience sorting\PatienceSorting\PatienceSorting\bin\Debug\PatienceSorting.exe
+D:\Библиотеки\Учёба\АСД\patience sorting\PatienceSorting\PatienceSorting\bin\Debug\PatienceSorting.pdb
+D:\Библиотеки\Учёба\АСД\patience sorting\PatienceSorting\PatienceSorting\obj\Debug\PatienceSorting.exe
+D:\Библиотеки\Учёба\АСД\patience sorting\PatienceSorting\PatienceSorting\obj\Debug\PatienceSorting.pdb
