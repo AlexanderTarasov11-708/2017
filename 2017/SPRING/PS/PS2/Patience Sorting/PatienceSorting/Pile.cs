@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 namespace PatienceSorting
 {
     //стопка
-    public class Pile : IEnumerable<Node>
+    public class Pile : IEnumerable<Node>, IComparable
     {
+        public int incr;
         public Node Head;
 
         //пустая инициализация
@@ -18,13 +19,13 @@ namespace PatienceSorting
         //инициализация по значению
         public Pile(int value)
         {
-            Head = new Node(value);
+            Head = new Node(value, incr++);
         }
 
         //добавить элемент в список по индексу
         public void Add(int index, int value)
         {
-            var newPlayer = new Node(value);
+            var newPlayer = new Node(value, incr++);
             if (index == 0)
                 Head = newPlayer;
             else
@@ -75,6 +76,39 @@ namespace PatienceSorting
                 i++;
             return i;
         }
-        
+
+        public int CompareTo(object obj)
+        {
+            var pile = (Pile)obj;
+            return Head.Value.CompareTo(pile.Head.Value);
+        }
+
+        //первое значение в кортеже индекс, второе итерации
+        public Tuple<int,int> BinarySearchRow(int x)
+        {
+            //левая граница
+            var left = 0;
+            //правая граница
+            var right = Length();
+            //итерации
+            var iterations = 0;
+            //середина рассматриваемого отрезка
+            var mid = left + (right - left) / 2;
+            // Если просматриваемый участок не пуст, first < last
+            while (left < right)
+            {
+                //сужаем рассматриваем отрезок в нужную сторону (правую/левую)
+                if (x >= GetNode(mid).Value)
+                    right = mid;
+                else
+                    left = mid + 1;
+                mid = left + (right - left) / 2;
+                //итерация самого вложенного цикла
+                iterations++;
+            }
+            return new Tuple<int,int>(mid,iterations);
+        }
     }
+
+
 }

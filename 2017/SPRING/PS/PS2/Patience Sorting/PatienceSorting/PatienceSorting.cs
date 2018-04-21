@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PatienceSorting
 {
     //класс с терпеливой сортировкой
     class PatienceSorting
-    {
+    { 
         public int iterations;
         //список стопок
         private List<Pile> piles;
@@ -16,6 +13,7 @@ namespace PatienceSorting
         //конструктор
         public PatienceSorting()
         {
+            iterations = 0;
             piles = new List<Pile>();
             iterations = 0;
         }
@@ -37,40 +35,47 @@ namespace PatienceSorting
                 AddNewPile(x);
             else
             {
-                var flag = false;
                 var i = 0;
-                while (!flag)
+                i = BinarySearchPile(x);
+
+                //если -1, то идти вглубь по стопке не надо, элемент уже добавлен на вершину новой
+                if (i != -1)
                 {
-                    //если переходим на новую стопку в списке
-                    if (i == piles.Count)
-                    {
-                        AddNewPile(x);
-                        flag = true;
-                    }
-                    else
-                    {
-                        //если первое значение в стопке <= данного, спускаемся по этой стопке
-                        if (x <= piles[i].Head.Value)
-                        {
-                            for (int j = 0; j < piles[i].Length(); j++)
-                            {
-                                //если значение <= данного и (>= следующего или данное последнее в стопке), добавляем
-                                if ((x <= piles[i].GetNode(j).Value &&
-                                    ((piles[i].Length() == j + 1) || x >= piles[i].GetNode(j + 1).Value))
-                                        || piles[i].GetNode(j).Next == null)
-                                {
-                                    iterations++;
-                                    piles[i].Add(j + 1, x);
-                                    flag = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    i++;
+                    //ищем подходящее место в стопке
+                    var tuple = piles[i].BinarySearchRow(x);
+                    //накапливаем итерации
+                    iterations += tuple.Item2;
+                    //добавляем элемент в стопку
+                    piles[i].Add(tuple.Item1,x);
                 }
             }
+        }
 
+        public int BinarySearchPile(int x)
+        {
+            //левая граница
+            var left = 0;
+            //правая граница
+            var right = piles.Count;
+            //середина рассматриваемого отрезка
+            var mid = left + (right - left) / 2;
+            // Если просматриваемый участок не пуст, first < last
+            while (left < right)
+            {
+                //сужаем рассматриваем отрезок в нужную сторону (правую/левую)
+                if (x < piles[mid].Head.Value)
+                    right = mid;
+                else
+                    left = mid + 1;
+                mid = left + (right - left) / 2;
+            }
+            //если больше всех в предыдущих стопках, создаём новую
+            if (mid >= piles.Count)
+            {
+                AddNewPile(x);
+                return -1;
+            }
+            return mid;
         }
 
         //создание новой стопки по значению
