@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 using System.Linq;
 
 namespace ConvexHull
@@ -16,22 +17,26 @@ namespace ConvexHull
             FindLeft(list, indexArray);
 
             //сортируем список indexArray быстрой сортировкой
-            Quicksort(indexArray, list, 1, n);
+            QuickSort(indexArray, list, 1, n - 1);
 
             //создаём стек
-            var stack = new Stack<int>();
-            stack.Push(indexArray[0]);
-            stack.Push(indexArray[1]);
-            //проходимся по всем вершинам и удаляем те из них, в которых угол > 180 градусов
-            for (var i=2; i < n; i++)
+            var resList = new List<int>();
+            resList.Add(indexArray[0]);
+            resList.Add(indexArray[1]);
+            //проходимся по всем вершинам и удаляем те из них, в которых 
+            //  новая выбранная точка левее линии, образованной последними 2 точками в результирующем списке
+            for (var i = 2; i < n; i++)
             {
-                while (Rotate(list[stack.ElementAt(stack.Count-2)], list[stack.ElementAt(stack.Count - 1)], list[indexArray[i]]) < 0)
-                    stack.Pop();
-
-                stack.Push(indexArray[i]);
+                while (Rotate(list[resList.ElementAt(resList.Count - 2)], list[resList.ElementAt(resList.Count - 1)], list[indexArray[i]]) < 0)
+                {
+                    resList.Remove(resList.Last());
+                    if (resList.Count == 1)
+                        break;
+                }
+                resList.Add(indexArray[i]);
             }
-            
-            return FromIntToPoint(stack.ToList(), list);
+
+            return FromIntToPoint(resList, list);
         }
 
         //алгоритм Джарвиса
@@ -79,7 +84,7 @@ namespace ConvexHull
                     //добавляем индекс в конечный список индексов
                     resultIndex.Add(indexArray[right]);
                     //удаляем его из исходного
-                    indexArray.Remove(right);
+                    indexArray.RemoveAt(right);
                 }
             }
         }
@@ -108,52 +113,50 @@ namespace ConvexHull
         {
             var array = new List<int>();
             for (var i = 0; i < n; i++)
-                array[i] = i;
+                array.Add(i);
             return array;
         }
 
         //ф-ция определяет, с какой стороны от вектора AB находится точка C 
-        //положительное возвращаемое значение соответствует левой стороне, отрицательное — правой
+        //положительное возвращаемое значение соответствует правой стороне, отрицательное — левой (по часовой стрелке)
         public static double Rotate(Point A, Point B, Point C)
         {
-            return (B.X - A.X) * (C.Y - B.Y) - (B.Y - A.Y) * (C.X - B.X);
+            var res = (B.X - A.X) * (C.Y - B.Y) - (B.Y - A.Y) * (C.X - B.X);
+            return res;
         }
 
         //замена местами двух элементов списка
         public static void Swap(int left, int right, List<int> array)
         {
-            var temp = left;
-            left = right;
-            right = temp;
+            var temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
         }
 
-        // нахождение оптимального опорного элемента
-        public static int Partition(List<int> m, List<Point> points, int a, int b)
+        //быстрая сортировка
+        public static void QuickSort(List<int> arr, List<Point> points, int first, int last)
         {
-            var i = a;
-            // просматриваем с a по b
-            for (var j = a; j <= b; j++)            
+            //опорный элемент
+            var p = (last - first) / 2 + first;
+            var i = first;
+            var j = last;
+            while (i <= j)
             {
-                // если элемент m[j] не превосходит m[b],
-                if (Rotate(points[m[0]], points[m[j]], points[m[b]]) <= 0)  
+                //сортируем элементы левее опорного
+                while (Rotate(points[arr[0]], points[arr[p]], points[arr[i]]) < 0 && i <= last)
+                    ++i;
+                //...правее опорного
+                while (Rotate(points[arr[0]], points[arr[p]], points[arr[j]]) > 0 && j >= first)
+                    --j;
+                if (i <= j)
                 {
-                    Swap(m[i], m[j], m);            // меняем местами m[j] и m[i] и т.д.
-                                                    // то есть переносим элементы меньшие m[b] в начало,
-                                                    // а затем и сам m[b] «сверху»
-                    i++;                            // таким образом последний обмен: m[b] и m[i], после чего i++
+                    Swap(i, j, arr);
+                    ++i; --j;
                 }
             }
-            return i - 1;                        // в индексе i хранится <новая позиция элемента m[b]> + 1
-        }
-
-        // быстрая сортировка
-        // a - начало подмножества, b - конец
-        public static void Quicksort(List<int> m, List<Point> points, int a, int b)
-        {                                        
-            if (a >= b) return;
-            var c = Partition(m, points, a, b);
-            Quicksort(m, points, a, c - 1);
-            Quicksort(m, points, c + 1, b);
+            //рекурсивно сортируем до итогового вида
+            if (j > first) QuickSort(arr, points, first, j);
+            if (i < last) QuickSort(arr, points, i, last);
         }
     }
 }
